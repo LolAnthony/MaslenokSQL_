@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <script src="{% static 'auth/script/phone_mask.js' %}"></script>
+    <div class="content-center">
+        {% if error %}
+            <h1 class="error_message">Пароль неверный<br>Данные не изменены</h1>
+        {% endif %}
+        <h1 class="h1_none_select">Редактирование профиля</h1>
+        <form class="change_form" method="post">
+            {% csrf_token %}
+            <input value="{{ first_name }}" placeholder="Имя" type="text" id="first_name" name="first_name" required><br>
+            <input value="{{ last_name }}" placeholder="Фамилия" type="text" id="last_name" name="last_name" required><br>
+            <input value="{{ middle_name }}" placeholder="Отчество" type="text" id="middle_name" name="middle_name" required><br>
+            <input value="{{ phone_number }}" class="tel" placeholder="Номер телефона" type="text" id="phone_number" name="phone_number" required><br>
+            <input value="{{ email }}" placeholder="Почта" type="text" id="email" name="email" required><br>
+            <input placeholder="Подтвердите пароль" type="password" id="password" name="password" required><br>
+            <input type="submit" value="Изменить данные">
+            <a class='reg_log_url' href="{% url 'change_password' %}">Изменить пароль</a>
+            <a class='reg_log_url' href="{% url 'profile' %}">Отмена</a>
+        </form>
+    </div>
+{% endblock %}

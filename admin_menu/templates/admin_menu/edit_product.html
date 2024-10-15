@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+
+{% block content %}
+    <div class="content-center" id="full">
+    {% if emp == 0 %}
+        <h1 class="header-text">Редактирование товара</h1>
+        <div class="product_edit_div">
+                <form method="post">{% csrf_token %}
+                <input name="product_id" value="{{ product.product_id }}" hidden="hidden">
+                <label for="name">Название</label>
+                <input name="name" class="find_field" placeholder="Название" type="text" value="{{ product.name }}">
+                <label for="weight">Вес</label>
+                <input name="weight" class="find_field" placeholder="Вес" type="text" value="{{ product.weight }}">
+                <label for="brand">Бренд</label><br>
+                <select name="brand" class="edit_field">
+                <option value="">Бренд</option>
+                {% for brand in brands %}
+                <option value="{{ brand }}" {% if product.brand == brand %} selected {% endif %}>{{ brand }}</option>
+                {% endfor %}
+                </select>
+                <label for="cost">Цена</label><br>
+               <input name="cost" class="find_field" placeholder="Цена" type="text" value="{{ product.cost }}">
+                    <input value="Сохранить" type="submit">
+                    <a href="{% url 'admin_menu' %}"><input class="input_like_submit" value="Отмена" type="button"></a>
+                </form>
+                <form method="post">
+                    <br><br>
+                {% csrf_token %}
+                    <input name="del_id" value="{{ product.product_id }}" hidden="hidden">
+                    <input type="submit" value="Удалить">
+                </form>
+        </div>
+    {% endif %}
+    {% if emp == 1 %}
+        <h1>Наличие в магазине</h1>
+            <table class="catalog">
+            <tr>
+                <th>Адрес</th>
+                <th>Кол-во</th>
+                <th>Сохранить</th>
+                    </tr>
+                {% for available in availability %}
+                    <form method="post">{% csrf_token %}
+                        <input name="product_id" hidden="hidden" value="{{ product.product_id }}">
+                        <input name="shop_id" hidden="hidden" value="{{ available.shop_id }}">
+                        <td>{{ available.address }}</td>
+                        <td><input min="0" name="quantity" value="{{ available.quantity }}"></td>
+                        <td><input type="submit" value="Сохранить"></td>
+                    </form>
+                    </tr>
+                {% endfor %}
+        </table>
+        <br>
+        <a href="{% url 'admin_menu' %}"><input type="button" value="Назад"></a>
+    {% endif %}
+    </div>
+{% endblock %}

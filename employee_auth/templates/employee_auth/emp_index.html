@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="content-center">
+    <h1>Личный кабинет сотрудника</h1>
+        <table>
+            <tr>
+                <th>Склада</th>
+                <th>Магазина</th>
+            </tr>
+            <tr>
+                <th><a href="{% url 'emp_login' %}"><input type="button" value="Войти"></a></th>
+                <th><a href="{% url 'sh_login' %}"><input type="button" value="Войти"></a></th>
+            </tr>
+        </table>
+    </div>
+{% endblock %}

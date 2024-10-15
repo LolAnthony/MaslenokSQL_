@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+
+{% block content %}
+    <div class="content-center" id="full">
+        <h1 class="header-text">Корзина</h1>
+    {% if products %}
+        <table class="catalog">
+            <tr>
+                <th>Наименование</th>
+                <th>Вес в кг.</th>
+                <th>Бренд</th>
+                <th>Страна</th>
+                <th>Цена</th>
+                <th>Количество</th>
+                <th>В наличии</th>
+                <th>Удалить</th>
+            </tr>
+            {% for product in products %}
+                <tr>
+                <td>{{ product.product_name }}</td>
+                <td>{{ product.weight }}</td>
+                <td>{{ product.brand_name }}</td>
+                <td>{{ product.country }}</td>
+                <td>{{ product.cost }}</td>
+                    <td>
+                        <input name="product_id" type="hidden" value="{{ product.product_id }}">
+                        <input name="quantity" min="0" max="{{ product.quantity }}" value="{{ product.curr_quantity }}" type="number" placeholder="Количество">
+                    </td>
+                    <td>{{ product.quantity }}</td>
+                    <td>
+                        <form method="post" action="{% url 'delete_product_cart' product.product_id %}">
+                            {% csrf_token %}
+                            <input type="submit" value="Удалить">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p class="h1_none_select">Пуста</p>
+    {% endif %}
+    </div>
+{% endblock %}

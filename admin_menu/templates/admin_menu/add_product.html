@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+
+{% block content %}
+    <div class="content-center" id="full">
+        <h1 class="header-text">Добавление товара</h1>
+        <div class="product_edit_div">
+                <form method="post">{% csrf_token %}
+                <input name="product_id" value="" hidden="hidden">
+                <label for="name">Название</label>
+                <input name="name" class="find_field" placeholder="Название" type="text">
+                <label for="weight">Вес</label>
+                <input name="weight" class="find_field" placeholder="Вес" type="text">
+                <label for="brand_id">Бренд</label><br>
+                <select name="brand_id" class="edit_field">
+                {% for id, brand in brands %}
+                <option value="{{ id }}">{{ brand }}</option>
+                {% endfor %}
+                </select>
+                <label for="price">Цена</label><br>
+               <input name="price" class="find_field" placeholder="Цена" type="text">
+                    <input value="Сохранить" type="submit">
+                    <a href="{% url 'admin_menu' %}"><input class="input_like_submit" value="Отмена" type="button"></a>
+                </form>
+        </div>
+    </div>
+{% endblock %}

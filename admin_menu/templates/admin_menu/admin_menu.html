@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+
+{% block content %}
+    <div class="content-center" id="full">
+        <h1 class="header-text">{% if emp == 1 %}Панель работника магазина{% else %}Панель работника склада{% endif %}</h1>
+        {% if emp == 0 %}
+        <a href="add_product"><input type="button" value="Добавить продукт"></a>
+        {% endif %}
+        <table class="catalog">
+        <tr>
+                <form method="get">{% csrf_token %}
+                <td><input name="name" class="find_field" placeholder="Название" type="text" value="{{ request.GET.name }}"></td>
+                <td><input name="weight" class="find_field" placeholder="Вес" type="text" value="{{ request.GET.weight }}"></td>
+                <td><select name="brand_name" class="find_field">
+                <option value="">Бренд</option>
+                {% for brand in brands %}
+                <option value="{{ brand }}" {% if request.GET.brand_name == brand %} selected {% endif %}>{{ brand }}</option>
+                {% endfor %}
+                </select></td>
+                <td><select name="country" class="find_field">
+                <option value="">Выберите страну</option>
+                {% for country in countries %}
+                <option value="{{ country }}" {% if request.GET.country == country %} selected {% endif %}>{{ country }}</option>
+                {% endfor %}
+                </select>
+                </td>
+                <td><input name="min_cost" class="find_field" placeholder="Цена от" type="text" value="{{ request.GET.min_cost }}">
+                    <input name="max_cost" class="find_field" placeholder="Цена до" type="text" value="{{ request.GET.max_cost }}"></td>
+                    <td><input value="Найти" type="submit">
+                    <a href="{% url 'admin_menu' %}"><input class="input_like_submit" value="Сбросить" type="button"></a></td>
+                </form>
+                <td>Наименований: {{ products_count }}</td>
+            </tr>
+            <tr>
+                <th>Наименование</th>
+                <th>Вес в кг.</th>
+                <th>Бренд</th>
+                <th>Страна</th>
+                <th>Цена</th>
+                <th>{% if emp == 0 %}Кол-во всего{% else %}Кол-во в магазине{% endif %}</th>
+                <th>Редактировать</th>
+            </tr>
+            {% for product in products %}
+                <tr>
+                <td>{{ product.product_name }}</td>
+                <td>{{ product.weight }}</td>
+                    <td><a class="page_control" href="?brand_name={{ product.brand_name }}">{{ product.brand_name }}</a></td>
+                    <td><a class="page_control" href="?country={{ product.country }}">{{ product.country }}</a></td>
+                <td>{{ product.cost }}</td>
+                    <td>{{ product.total }}</td>
+                    <td><form method="POST" action="{% url 'edit_product' %}">
+                        {% csrf_token %}<input hidden="hidden" name="product_id" value="{{ product.product_id }}"><input type="submit" value="Редактировать">
+                    </form></td></tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

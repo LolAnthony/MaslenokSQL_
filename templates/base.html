@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static 'auth/css/base.css' %}">
+</head>
+<body>
+    <header>
+        <h1 class="logo">Масленок</h1>
+        <ul>
+            <li><a href="{% url 'index' %}">Главная</a></li>
+            <li><a href="{% url 'catalog' %}">Каталог</a></li>
+            <li><a href="{% url 'cart' %}">Корзина</a></li>
+            <li><a href="{% url 'contacts' %}">Контакты</a></li>
+            <li><a href="{% url 'emp_index' %}">Сотрудникам</a></li>
+            <li><a href="{% url 'about' %}">О нас</a></li>
+            <li><a href="{% url 'profile' %}"><img id='user_logo' alt='Личный кабинет' src="{% static 'picture/user.png' %}"></a></li>
+        </ul>
+    </header>
+
+{% block content %}
+{% endblock %}
+
+    <footer>
+        <h1 id="footer_text">Магазин автомасел и автозапчастей "Масленок" - 2024</h1>
+    </footer>
+</body>
+</html>

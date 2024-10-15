@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="content-center">
+        <h1 class="h1_none_select">Профиль работника магазина</h1>
+        <table class="profile_table">
+            <tr>
+                <th>Фамилия</th>
+                <td>{{ last_name }}</td>
+            </tr>
+            <tr>
+                <th>Имя</th>
+                <td>{{ first_name }}</td>
+            </tr>
+            <tr>
+                <th>Отчество</th>
+                <td>{{ middle_name }}</td>
+            </tr>
+            <tr>
+                <th>Номер телефона</th>
+                <td>{{ phone_number }}</td>
+            </tr>
+            <tr>
+                <th>Почта</th>
+                <td>{{ email }}</td>
+            </tr>
+            <tr>
+                <th>Должность</th>
+                <td>{{ function }}</td>
+            </tr>
+            <tr>
+                <th>Адрес магазина</th>
+                <td>{{ subject }}, {{ town }}</td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>{{ street }}, {{ house }}</td>
+            </tr>
+        </table>
+        <div class="column">
+            <a href="{% url 'sh_change_profile_data' %}"><input class="input_profile" value="Редактировать" type="button"></a>
+            <a href="{% url 'sh_logout' %}"><input class="input_profile" value="Выход" type="button"></a>
+        </div>
+        <br>
+    <a href="{% url 'admin_menu' %}"><input style="width: 44vh" value="Редактировать наличие товара в магазине" type="button"></a>
+    </div>
+{% endblock %}

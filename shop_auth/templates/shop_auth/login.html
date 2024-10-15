@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="content-center">
+        <h1 class="h1_none_select">Авторизация работника магазина</h1>
+        {% if error %}
+            <h1 class="error_message">Неверные данные</h1>
+        {% endif %}
+        <form class="login_form" method="post">
+            {% csrf_token %}
+            <input placeholder="Почта" type="text" id="email" name="email" required><br>
+            <input placeholder="Пароль" type="password" id="password" name="password" required><br>
+            <input type="submit" value="Войти">
+        </form>
+    </div>
+{% endblock %}
